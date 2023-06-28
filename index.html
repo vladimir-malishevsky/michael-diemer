@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Date of Michael`s Death</title>
+</head>
+<body>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/gost-type-a');
+
+        *, *::before, *::after {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            font-size: 50px;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+
+            background: url('michael.jpg');
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .michael-timer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            color: red;
+            text-align: center;
+            font-family: 'GOST type A', sans-serif;
+            font-style: italic;
+        }
+
+        .time {
+            width: 100%;
+            display: flex;
+        }
+
+        .time .time__segment {
+            font-size: 60px;
+            font-weight: bold;
+
+            display: flex;
+            justify-content: space-evenly;
+            flex: 1;
+        }
+
+
+        .michael-timer .michael-timer__button {
+            margin-top: 100px;
+
+            display: block;
+
+            text-decoration: none;
+            font-size: 60px;
+            font-weight: bold;
+            color: green;
+        }
+
+        .michael-timer .michael-timer__button:hover {
+            transform: scale(1.1);
+            color: red;
+        }
+
+        @media (max-width: 900px) {
+            .time .time__segment {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .time .time__segment {
+                font-size: 40px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .time .time__segment {
+                font-size: 30px;
+            }
+        }
+
+    </style>
+    <div class="container">
+        <div class="michael-timer">
+            <h2 class="michael-timer__text">Міша помре від голоду через</h2>
+            <div class="time" id="timer">
+                <div class="time__segment">
+                    <span class="time__value" data-value-type="days">0</span>    
+                    <span class="time__text">днів</span>    
+                </div>
+                <div class="time__segment">
+                    <span class="time__value" data-value-type="hours">0</span>
+                    <span class="time__text">годин</span>
+                </div>
+                <div class="time__segment">
+                    <span class="time__value" data-value-type="minutes">0</span>
+                    <span class="time__text">хвилин</span>
+                </div>
+                <div class="time__segment">
+                    <span class="time__value" data-value-type="seconds">0</span>
+                    <span class="time__text">секунд</span>
+                </div>
+            </div>
+            <a class="michael-timer__button" href="https://morningrunguys.files.wordpress.com/2016/04/empty-plate.jpg?w=676">ВМЕРТИ ЗАРАЗ</a>
+        </div>
+    </div>
+
+    <script>
+        const timer = document.querySelector('#timer')
+        const segments = timer.querySelectorAll('[data-value-type]')
+        
+        
+        const dateDie = new Date('27 June 2025 21:07:08')
+
+        calculateTime()
+        setInterval(calculateTime, 1000)
+
+        function calculateTime() {
+            const dateNow = new Date()
+
+            const substract = dateDie - dateNow
+            
+            segments.forEach(el => {
+                const valueType = el.getAttribute('data-value-type')
+
+                switch (valueType) {
+                    case 'days':
+                        el.innerHTML = Math.floor(substract / 1000 / 60 / 60 / 24)
+                        break
+                    case 'hours':
+                    el.innerHTML = Math.floor((substract / 1000 / 60 / 60) % 24)
+                        break
+                    case 'minutes':
+                    el.innerHTML = Math.floor((substract / 1000 / 60) % 60)
+                        break
+                    case 'seconds':
+                    el.innerHTML = Math.floor((substract / 1000) % 60)
+                        break
+                }
+            })
+        }
+    </script>
+</body>
+</html>
