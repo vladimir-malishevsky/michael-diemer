@@ -76,6 +76,72 @@
             color: red;
         }
 
+        .faq {
+            position: absolute;
+            bottom: 60px;
+            
+            color: #fff;
+            font-family: 'GOST type A', sans-serif;
+            font-style: bold;
+        }
+
+        .faq .faq__button {
+            display: block;
+
+            color: #fff;
+            text-decoration: none;
+            font-size: 30px;
+        }
+
+        .faq .faq__button:hover {
+            color: red;
+            transform: scale(1.1);
+        }
+
+        .faq .faq__modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .faq .faq__modal.active {
+            display: block;
+        }
+
+        .faq .faq__modal .faq__modal-inner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            width: 400px;
+            height: 35%;
+            padding: 20px;
+            background: #404040;
+
+            font-size: 30px;
+            text-align: justify;
+        }
+
+        .faq .faq__modal .faq__modal-inner .faq__modal-close {
+            position: absolute;
+            width: 100px;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            display: block;
+            color: white;
+            text-decoration: none;
+        }
+
+        .faq .faq__modal .faq__modal-inner .faq__modal-close:hover {
+            color: red;
+            transform: translateX(-50%) scale(1.1);
+        }
+
         @media (max-width: 900px) {
             .time .time__segment {
                 flex-direction: column;
@@ -91,6 +157,16 @@
         @media (max-width: 420px) {
             .time .time__segment {
                 font-size: 30px;
+            }
+
+            .faq .faq__modal .faq__modal-inner {
+                width: 300px;
+                height: 45%;
+                padding: 20px;
+                background: #404040;
+
+                font-size: 30px;
+                text-align: justify;
             }
         }
 
@@ -117,6 +193,18 @@
                 </div>
             </div>
             <a class="michael-timer__button" href="https://morningrunguys.files.wordpress.com/2016/04/empty-plate.jpg?w=676">ВМЕРТИ ЗАРАЗ</a>
+        </div>
+        <div class="faq">
+            <a class="faq__button" id="faq-button" href="">FAQ</a>
+            <div class="faq__modal" id="faq-modal">
+                <div class="faq__modal-inner">
+                    <p>
+                        One day, namely on June 27 at 21:07:20, Mykhailo said that if he does not find a job in 2 years, he will die of hunger. 
+                        This page was created for the bullying of Mykhailo in order to give him motivation in his IT endeavors.
+                    </p>
+                    <a class="faq__modal-close" id="faq-close" href="">Close</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -154,6 +242,20 @@
                 }
             })
         }
+
+        const faqButton = document.querySelector('#faq-button')
+        const faqModal = document.querySelector('#faq-modal')
+        const faqModalCloseButton = document.querySelector('#faq-close')
+
+        faqButton.addEventListener('click', e => {
+            e.preventDefault()
+            faqModal.classList.add('active')
+        })
+
+        faqModalCloseButton.addEventListener('click', e => {
+            e.preventDefault()
+            faqModal.classList.remove('active')
+        })
     </script>
 </body>
 </html>
