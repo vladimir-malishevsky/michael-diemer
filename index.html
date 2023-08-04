@@ -170,10 +170,37 @@
             }
         }
 
+        .pending {
+            background-color: rgba(0, 0, 0, 0.8);
+
+            position: fixed;
+            inset: 0;
+
+            display: none;
+            justify-content: center;
+            align-items: center;
+
+            color: white;
+            font-size: 46px;
+            letter-spacing: 0.1rem;
+
+            animation: 1.5s linear alternate pending;
+        }
+
+        @keyframes pending {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
     </style>
     <div class="container">
         <div class="michael-timer">
-            <h2 class="michael-timer__text">Міша помре від голоду через</h2>
+            <div class="pending" id="pending">Михайло проходить співбес...</div>
+            <h2 class="michael-timer__text" id="michael-timer-text">Міша помре від голоду через</h2>
             <div class="time" id="timer">
                 <div class="time__segment">
                     <span class="time__value" data-value-type="days">0</span>    
@@ -210,8 +237,17 @@
 
     <script>
         const timer = document.querySelector('#timer')
+        const timerText = document.querySelector('#michael-timer-text')
         const segments = timer.querySelectorAll('[data-value-type]')
-        
+
+        const pending = document.querySelector('#pending')
+
+        fetch('assets/config.json').then(response => response.json()).then((json) => {
+            if (json?.michaelStatus === 'pending') {
+                pending.style.display = 'flex'
+                timerText.innerText = 'Міша можливо помре від голоду через'
+            }
+        })
         
         const dateDie = new Date('27 June 2025 21:07:08')
 
